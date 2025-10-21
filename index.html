@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Marks by Gender</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      padding: 30px;
+    }
+    input, button {
+      margin: 5px;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #aaa;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fcc;
+    }
+    #result {
+      margin-top: 20px;
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
+      display: inline-block;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h2>Marks by Gender</h2>
+
+  <p>Enter "m" for male, "f" for female, or "n" to finish.</p>
+
+  <input id="gender" placeholder="Gender (m/f/n)">
+  <input id="mark" type="number" placeholder="Mark">
+  <button onclick="add()">Submit</button>
+
+  <p id="result"></p>
+
+  <script>
+    let girlMark = 0;
+    let boyMark = 0;
+    let numGirls = 0;
+    let numBoys = 0;
+
+    function add() {
+      let gender = document.getElementById("gender").value.toLowerCase();
+      let mark = parseInt(document.getElementById("mark").value);
+
+      if (gender === "n") {
+        showResult();
+        return;
+      }
+
+      if ((gender !== "m" && gender !== "f") || isNaN(mark)) {
+        alert("Enter valid gender (m/f) and mark!");
+        return;
+      }
+
+      if (gender === "f") {
+        girlMark += mark;
+        numGirls++;
+      } else {
+        boyMark += mark;
+        numBoys++;
+      }
+
+      document.getElementById("result").innerText =
+        `Gender: ${gender}, Mark: ${mark}\nGirls: ${numGirls}, Boys: ${numBoys}`;
+
+      document.getElementById("gender").value = "";
+      document.getElementById("mark").value = "";
+    }
+
+    function showResult() {
+      let avgGirls = numGirls ? girlMark / numGirls : 0;
+      let avgBoys = numBoys ? boyMark / numBoys : 0;
+      let winner = "";
+
+      if (avgGirls > avgBoys) winner = "The girls won!";
+      else if (avgBoys > avgGirls) winner = "The boys won!";
+      else winner = "It's a tie!";
+
+      document.getElementById("result").innerText =
+        `Girls average: ${avgGirls.toFixed(2)}\nBoys average: ${avgBoys.toFixed(2)}\n${winner}`;
+    }
+  </script>
+</body>
+</html>
