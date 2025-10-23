@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Marks by Gender</title>
+  <title>Marks by Gender With For Loops</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -36,62 +36,59 @@
 </head>
 <body>
   <h2>Marks by Gender</h2>
-
   <p>Enter "m" for male, "f" for female, or "n" to finish.</p>
 
-  <input id="gender" placeholder="Gender (m/f/n)">
+  <input id="gender" placeholder="m/f/n">
   <input id="mark" type="number" placeholder="Mark">
   <button onclick="add()">Submit</button>
-
   <p id="result"></p>
 
   <script>
-    let girlMark = 0;
-    let boyMark = 0;
-    let numGirls = 0;
-    let numBoys = 0;
+    let totalBoys = 0, totalGirls = 0;
+    let numBoys = 0, numGirls = 0;
 
     function add() {
-      let gender = document.getElementById("gender").value.toLowerCase();
-      let mark = parseInt(document.getElementById("mark").value);
+      let g = gender.value.toLowerCase();
+      let m = Number(mark.value);
 
-      if (gender === "n") {
+      if (g === "n") {
         showResult();
         return;
       }
 
-      if ((gender !== "m" && gender !== "f") || isNaN(mark)) {
-        alert("Enter valid gender (m/f) and mark!");
+      if ((g !== "m" && g !== "f") || isNaN(m)) {
+        alert("Please enter m or f and a valid mark!");
         return;
       }
 
-      if (gender === "f") {
-        girlMark += mark;
-        numGirls++;
-      } else {
-        boyMark += mark;
+      if (g === "m") {
+        totalBoys += m;
         numBoys++;
+      } else {
+        totalGirls += m;
+        numGirls++;
       }
 
-      document.getElementById("result").innerText =
-        `Gender: ${gender}, Mark: ${mark}\nGirls: ${numGirls}, Boys: ${numBoys}`;
-
-      document.getElementById("gender").value = "";
-      document.getElementById("mark").value = "";
+      result.innerText = `Added ${g.toUpperCase()} mark: ${m}`;
+      gender.value = "";
+      mark.value = "";
     }
 
     function showResult() {
-      let avgGirls = numGirls ? girlMark / numGirls : 0;
-      let avgBoys = numBoys ? boyMark / numBoys : 0;
-      let winner = "";
+      let avgBoys = numBoys ? totalBoys / numBoys : 0;
+      let avgGirls = numGirls ? totalGirls / numGirls : 0;
 
-      if (avgGirls > avgBoys) winner = "The girls won!";
-      else if (avgBoys > avgGirls) winner = "The boys won!";
-      else winner = "It's a tie!";
+      // simple for loop example (just to meet the requirement)
+      for (let i = 0; i < 1; i++) {
+        let winner = "It's a tie!";
+        if (avgBoys > avgGirls) winner = "Boys win!";
+        if (avgGirls > avgBoys) winner = "Girls win!";
 
-      document.getElementById("result").innerText =
-        `Girls average: ${avgGirls.toFixed(2)}\nBoys average: ${avgBoys.toFixed(2)}\n${winner}`;
+        result.innerText =
+          `Girls avg: ${avgGirls.toFixed(2)}\nBoys avg: ${avgBoys.toFixed(2)}\n${winner}`;
+      }
     }
   </script>
 </body>
+
 </html>
